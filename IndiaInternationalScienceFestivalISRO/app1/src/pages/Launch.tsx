@@ -19,7 +19,7 @@ import {
 import React, { useState } from "react";
 import { logInOutline, planet } from "ionicons/icons";
 import { loginUser } from "../firebaseConfig";
-import { Router, useHistory } from "react-router";
+import { toast } from "../toast";
 
 const Launch: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -28,9 +28,9 @@ const Launch: React.FC = () => {
   async function login() {
     const res = await loginUser(email, password)
     if (!res) {
-      <IonToast trigger="open-toast" message="Error logging in with your credentials" duration={1000}></IonToast>
-    }else {
-      <IonToast trigger="open-toast" message="Successfully logged in!" duration={1000}></IonToast>
+      toast('Error logging you in')
+    } else {
+      toast('Successfully logged in!')
     }
   }
 
