@@ -1,5 +1,5 @@
-import firebase from 'firebase/app';
-import auth, { getAuth } from '../node_modules/firebase/auth';
+import * as firebase from 'firebase/app';
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const config = {
   apiKey: "AIzaSyCOw86gitu12oi9zfhmidiOg4vqRaheovI",
@@ -16,7 +16,7 @@ const authorise = getAuth();
 
 export async function loginUser(email:string, password:string) {
   try {
-    const res = await auth.signInWithEmailAndPassword(authorise, email, password);
+    const res = await signInWithEmailAndPassword(authorise, email, password);
     return true
   } catch (error) {
     console.log('error')
