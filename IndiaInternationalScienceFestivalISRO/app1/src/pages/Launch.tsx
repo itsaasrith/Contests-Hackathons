@@ -17,14 +17,16 @@ import {
 } from "@ionic/react";
 import React, { useState } from "react";
 import { logInOutline, planet } from "ionicons/icons";
+import { loginUser } from "../firebaseConfig";
 import { Router, useHistory } from "react-router";
 
 const Launch: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  function loginUser() {
-    console.log(email, password);
+  async function login() {
+    const res = await loginUser(email, password)
+    console.log(`${res ? 'Login success' : 'Login failed'}`)
   }
 
   return (
@@ -81,7 +83,7 @@ const Launch: React.FC = () => {
               expand="full"
               color={"success"}
               className="ion-margin-top"
-              onClick={loginUser}
+              onClick={login}
             >
               Login
               <IonIcon icon={logInOutline} slot="start" />
