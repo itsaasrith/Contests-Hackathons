@@ -27,10 +27,8 @@ const Launch: React.FC = () => {
 
   async function login() {
     const res = await loginUser(email, password)
-    if (!res) {
-      toast('Error logging you in')
-    } else {
-      toast('Successfully logged in!')
+    if (res) {
+      toast('Successfuly logged in')
     }
   }
 
@@ -85,7 +83,7 @@ const Launch: React.FC = () => {
             {/* Login button */}
             <IonButton
               type="button"
-              expand="full"
+              expand='block'
               color={"success"}
               className="ion-margin-top"
               onClick={login}
@@ -95,7 +93,7 @@ const Launch: React.FC = () => {
             </IonButton>
             {/* Register button */}
             <IonButton
-              expand="full"
+              expand='block'
               routerLink="/Register"
               className="ion-margin-top"
             >
@@ -110,7 +108,7 @@ const Launch: React.FC = () => {
         <IonFooter>
           <IonCard color={""}>
             <h6 style={{ fontSize: "1em", textAlign: "center" }}>
-              2023 All Rights Reserved
+              &copy; 2023 All Rights Reserved
             </h6>
           </IonCard>
         </IonFooter>

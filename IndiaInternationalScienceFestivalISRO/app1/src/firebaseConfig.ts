@@ -1,5 +1,6 @@
 import * as firebase from 'firebase/app';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { toast } from './toast';
 
 const config = {
   apiKey: "AIzaSyCOw86gitu12oi9zfhmidiOg4vqRaheovI",
@@ -19,9 +20,17 @@ export async function loginUser(email:string, password:string) {
     const res = await signInWithEmailAndPassword(authorise, email, password);
     return true
   } catch (error) {
-    console.log('error')
+    toast('Error logging you in!')
     return false
   }
 }
 
-
+export async function registerUser(email:string, password:string) {
+  try {
+    const res = await createUserWithEmailAndPassword(authorise, email, password)
+    return true
+  } catch (error) {
+    toast('Error registering you in, try again!')
+    return false
+  }
+}
