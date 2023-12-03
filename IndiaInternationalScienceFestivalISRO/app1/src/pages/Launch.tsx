@@ -13,6 +13,7 @@ import {
   IonPage,
   IonRouterLink,
   IonTitle,
+  IonToast,
   IonToolbar,
 } from "@ionic/react";
 import React, { useState } from "react";
@@ -26,7 +27,11 @@ const Launch: React.FC = () => {
 
   async function login() {
     const res = await loginUser(email, password)
-    console.log(`${res ? 'Login success' : 'Login failed'}`)
+    if (!res) {
+      <IonToast trigger="open-toast" message="Error logging in with your credentials" duration={1000}></IonToast>
+    }else {
+      <IonToast trigger="open-toast" message="Successfully logged in!" duration={1000}></IonToast>
+    }
   }
 
   return (
