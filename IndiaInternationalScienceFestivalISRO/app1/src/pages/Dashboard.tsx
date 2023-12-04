@@ -8,63 +8,67 @@ import {
   IonGrid,
   IonRow,
   IonCol,
+  IonPage,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
 } from "@ionic/react";
 
 const Dashboard: React.FC = () => {
   return (
-    <IonGrid>
-      <IonRow>
-        <IonCol size="6">
-          <IonCard color="light">
-            <IonCardHeader>
-              <IonCardSubtitle>Card 1</IonCardSubtitle>
-              <IonCardTitle>Cute Card</IonCardTitle>
-            </IonCardHeader>
-            <IonCardContent>
-              This is a cute-looking card with a light color theme.
-            </IonCardContent>
-          </IonCard>
-        </IonCol>
+    <IonPage>
+      <IonHeader>
+        <IonToolbar color="light">
+          <IonTitle className="ion-padding-left">Dashboard</IonTitle>
+        </IonToolbar>
+      </IonHeader>
 
-        <IonCol size="6">
-          <IonCard color="light">
-            <IonCardHeader>
-              <IonCardSubtitle>Card 2</IonCardSubtitle>
-              <IonCardTitle>Cute Card</IonCardTitle>
-            </IonCardHeader>
-            <IonCardContent>
-              This is another cute-looking card with a light color theme.
-            </IonCardContent>
-          </IonCard>
-        </IonCol>
-      </IonRow>
+      <IonGrid>
+        <IonRow>
+          <IonCol size="6">
+            <IonCard color="light">
+              <IonCardHeader>
+                <IonCardSubtitle>Card 1</IonCardSubtitle>
+                <IonCardTitle>Feature 1</IonCardTitle>
+              </IonCardHeader>
+              <IonCardContent>This is the feature.</IonCardContent>
+            </IonCard>
+          </IonCol>
 
-      <IonRow>
-        <IonCol size="6">
-          <IonCard color="light">
-            <IonCardHeader>
-              <IonCardSubtitle>Card 3</IonCardSubtitle>
-              <IonCardTitle>Cute Card</IonCardTitle>
-            </IonCardHeader>
-            <IonCardContent>
-              Yet another cute-looking card with a light color theme.
-            </IonCardContent>
-          </IonCard>
-        </IonCol>
+          <IonCol size="6">
+            <IonCard color="light">
+              <IonCardHeader>
+                <IonCardSubtitle>Card 2</IonCardSubtitle>
+                <IonCardTitle>Feature 2</IonCardTitle>
+              </IonCardHeader>
+              <IonCardContent>This is the feature.</IonCardContent>
+            </IonCard>
+          </IonCol>
+        </IonRow>
 
-        <IonCol size="6">
-          <IonCard color="light">
-            <IonCardHeader>
-              <IonCardSubtitle>Card 4</IonCardSubtitle>
-              <IonCardTitle>Cute Card</IonCardTitle>
-            </IonCardHeader>
-            <IonCardContent>
-              The last cute-looking card with a light color theme.
-            </IonCardContent>
-          </IonCard>
-        </IonCol>
-      </IonRow>
-    </IonGrid>
+        <IonRow>
+          <IonCol size="6">
+            <IonCard color="light">
+              <IonCardHeader>
+                <IonCardSubtitle>Card 3</IonCardSubtitle>
+                <IonCardTitle>Feature 3</IonCardTitle>
+              </IonCardHeader>
+              <IonCardContent>This is the feature.</IonCardContent>
+            </IonCard>
+          </IonCol>
+
+          <IonCol size="6">
+            <IonCard color="light">
+              <IonCardHeader>
+                <IonCardSubtitle>Card 4</IonCardSubtitle>
+                <IonCardTitle>Feature 4</IonCardTitle>
+              </IonCardHeader>
+              <IonCardContent>This is the feature.</IonCardContent>
+            </IonCard>
+          </IonCol>
+        </IonRow>
+      </IonGrid>
+    </IonPage>
   );
 };
 
