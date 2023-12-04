@@ -13,8 +13,9 @@ import {
   IonTitle,
   IonIcon,
   IonFooter,
+  IonLoading,
 } from "@ionic/react";
-import { personCircle, lockClosed, mailOutline } from "ionicons/icons";
+import { personCircle, lockClosed, mailOutline, bus } from "ionicons/icons";
 import { toast } from "../toast";
 import { registerUser } from "../firebaseConfig";
 
@@ -22,8 +23,10 @@ const Register: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [busy, setBusy] = useState<boolean>(false)
 
   async function handleRegister() {
+    setBusy(true)
     if (password !== confirmPassword) {
       toast("Passwords don't match");
     }
@@ -34,6 +37,7 @@ const Register: React.FC = () => {
     if (res) {
         toast('Account created successfully! Please login...')
     }
+    setBusy(false)
   }
 
   return (
@@ -43,6 +47,7 @@ const Register: React.FC = () => {
           <IonTitle>Registration</IonTitle>
         </IonToolbar>
       </IonHeader>
+      <IonLoading message={'Please wait...'} duration={0} isOpen={busy}/>
       <IonContent className="ion-padding">
         <IonCard>
           <IonCardContent>
