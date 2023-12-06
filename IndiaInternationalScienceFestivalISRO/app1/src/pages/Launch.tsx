@@ -57,7 +57,7 @@ const Launch: React.FC = () => {
                 fontFamily: "monospace",
               }}
             >
-              To the realm of space !
+              To our app !
             </p>
 
             <form>
