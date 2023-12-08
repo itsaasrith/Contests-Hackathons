@@ -4,10 +4,14 @@ import {
   getAuth,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  sendEmailVerification,
+  sendSignInLinkToEmail,
+  signInWithCredential
 } from "firebase/auth";
+import { NavLink, useHistory } from "react-router-dom";
 import { toast } from "./toast";
 
-const config = {
+var firebaseConfig = {
   apiKey: "AIzaSyCOw86gitu12oi9zfhmidiOg4vqRaheovI",
   authDomain: "app1-406916.firebaseapp.com",
   projectId: "app1-406916",
@@ -17,30 +21,41 @@ const config = {
   measurementId: "G-B8SG2PPKZ0",
 };
 
-firebase.initializeApp(config);
-const authorise = getAuth();
+const app = firebase.initializeApp(firebaseConfig);
+const authorise = getAuth(app);
 
 export async function loginUser(email: string, password: string) {
   try {
-    const res = await signInWithEmailAndPassword(authorise, email, password);
-    return true;
+    var userCredential = await signInWithEmailAndPassword(
+      authorise,
+      email,
+      password
+    );
+    const user = userCredential.user;
+    console.log(user);
+    return user;
   } catch (error) {
     toast("Error logging you in!");
+    console.log(false);
     return false;
   }
 }
 
 export async function registerUser(email: string, password: string) {
   try {
-    const res = await createUserWithEmailAndPassword(
+    const userCredential = await createUserWithEmailAndPassword(
       authorise,
       email,
       password
     );
-    return true;
+    const user = userCredential.user
+
+    sendEmailVerification(user)
+    console.log(true);
+    return user;
   } catch (error) {
-    toast("Error registering you in, try again!");
-    return false;
+    console.error('Error signing up!', error);
+    console.log(false);
   }
 }
 
@@ -55,4 +70,8 @@ export function getCurrentUser() {
       unsubscribe();
     });
   });
+}
+
+async function sendEmailOTP(email:string) {
+  await sendSignInLinkToEmail
 }
