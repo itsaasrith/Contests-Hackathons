@@ -28,10 +28,9 @@ const Launch: React.FC = () => {
   console.log(cleanedEmail)
 
   async function login() {
-    try {
-      await signIn(cleanedEmail, password)
-    } catch(error) {
-      console.log(cleanedEmail);
+    const res = await loginUser(email, password)
+    if (res) {
+      toast('you are Successfuly logged in')
     }
   }
 
