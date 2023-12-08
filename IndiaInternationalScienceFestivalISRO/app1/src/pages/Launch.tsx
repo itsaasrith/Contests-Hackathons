@@ -97,7 +97,7 @@ const Launch: React.FC = () => {
               routerLink="/Register"
               className="ion-margin-top"
             >
-              First time? Register here!
+              New user? Register here!
               <IonIcon icon={planet} slot="start" />
             </IonButton>
           </IonCardContent>
