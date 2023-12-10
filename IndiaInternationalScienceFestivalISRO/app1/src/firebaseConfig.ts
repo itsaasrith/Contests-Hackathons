@@ -8,6 +8,7 @@ import {
   sendSignInLinkToEmail,
   signInWithCredential
 } from "firebase/auth";
+import { collection, getFirestore, addDoc } from 'firebase/firestore'
 import { NavLink, useHistory } from "react-router-dom";
 import { toast } from "./toast";
 
@@ -23,6 +24,7 @@ var firebaseConfig = {
 
 const app = firebase.initializeApp(firebaseConfig);
 const authorise = getAuth(app);
+const db = getFirestore(app);
 
 export async function loginUser(email: string, password: string) {
   try {
@@ -41,7 +43,7 @@ export async function loginUser(email: string, password: string) {
   }
 }
 
-export async function registerUser(email: string, password: string) {
+export async function registerUser(name: string, dob: string,email: string, password: string, role: string) {
   try {
     const userCredential = await createUserWithEmailAndPassword(
       authorise,
@@ -51,11 +53,18 @@ export async function registerUser(email: string, password: string) {
     const user = userCredential.user
 
     sendEmailVerification(user)
-    console.log(true);
+
+    await addDoc(collection(db, 'user-data'), {
+      name: name,
+      dob: dob,
+      email: email,
+      role:role,
+    })
+    
     return user;
   } catch (error) {
     console.error('Error signing up!', error);
-    console.log(false);
+    throw error;
   }
 }
 
