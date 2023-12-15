@@ -4,6 +4,8 @@ import { IonReactRouter } from '@ionic/react-router';
 import Launch from './pages/Launch';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
+import UserDashboard from './pages/UserDashboard';
+import ManagerDashboard from './pages/ManagerDashboard';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -33,6 +35,8 @@ const App: React.FC = () => (
         <Route path="/" component={Launch} exact />
         <Route path="/Register" component={Register} exact />
         <Route path="/Dashboard" component={Dashboard} exact />
+        <Route path="/ManagerDashboard" component={ManagerDashboard} exact />
+        <Route path="/UserDashboard" component={UserDashboard} exact />
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>
