@@ -18,17 +18,20 @@ import {
 } from "@ionic/react";
 import React, { useState } from "react";
 import { logInOutline, planet } from "ionicons/icons";
-import { loginUser } from "../firebaseConfig";
+import { loginUser, signIn } from "../firebaseConfig";
 import { toast } from "../toast";
 
 const Launch: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const cleanedEmail = email.trim();
+  console.log(cleanedEmail)
 
   async function login() {
-    const res = await loginUser(email, password)
-    if (res) {
-      toast('Successfuly logged in')
+    try {
+      await signIn(cleanedEmail, password)
+    } catch(error) {
+      console.log(cleanedEmail);
     }
   }
 
@@ -106,6 +109,9 @@ const Launch: React.FC = () => {
 
       <div className="ion-light">
         <IonFooter>
+        <IonButton expand="block" onClick={login}>
+          Login as Manager
+        </IonButton>
           <IonCard color={""}>
             <h6 style={{ fontSize: "1em", textAlign: "center" }}>
               &copy; 2023 All Rights Reserved
