@@ -8,7 +8,7 @@ import {
   sendSignInLinkToEmail,
   signInWithCredential
 } from "firebase/auth";
-import { collection, getFirestore, addDoc } from 'firebase/firestore'
+import { collection, getFirestore, addDoc, doc, getDoc } from 'firebase/firestore'
 import { NavLink, useHistory } from "react-router-dom";
 import { toast } from "./toast";
 
@@ -81,6 +81,30 @@ export function getCurrentUser() {
   });
 }
 
-async function sendEmailOTP(email:string) {
-  await sendSignInLinkToEmail
+export async function signIn(email:string, password: string) {
+  try {
+    const userCredential = await signInWithEmailAndPassword(authorise, email, password);
+    const user = userCredential.user;
+
+    // Retrieve user role from Firestore
+    const userDocRef = doc(db, 'user-data', user.uid);
+    const userDocSnapshot = await getDoc(userDocRef);
+
+    if (userDocSnapshot.exists()) {
+      const role = userDocSnapshot.data().role;
+      // Redirect based on role
+      if (role === 'manager') {
+        // Redirect to manager dashboard
+      } else if (role === 'user') {
+        // Redirect to user dashboard
+        window.location.href = '/user-dashboard';
+      }
+    }
+
+
+    return user;
+  } catch (error) {
+    console.error('Error signing in:', error);
+    throw error; // You can handle this error in your UI
+  }
 }
