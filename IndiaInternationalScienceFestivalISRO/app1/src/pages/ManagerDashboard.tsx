@@ -7,6 +7,7 @@ import {
   query,
   setDoc,
   addDoc,
+  deleteDoc,
 } from "firebase/firestore";
 import db from "../firebaseConfig";
 import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from "@ionic/react";
@@ -58,12 +59,16 @@ const ManagerDashboard: React.FC = () => {
         email: email,
         role:role,
     })
+    setRegistrationRequests((prevRequests) => prevRequests.filter((request) => request.id !== requestId));
+    await deleteDoc(doc(db, 'registration-requests', requestId));
   };
 
   const handleRejection = async (requestId:string) => {
     await updateDoc(doc(db, "registration-requests", requestId), {
       status: "Rejected",
     });
+    setRegistrationRequests((prevRequests) => prevRequests.filter((request) => request.id !== requestId));
+    await deleteDoc(doc(db, 'registration-requests', requestId));
   };
 
   return (
@@ -75,7 +80,7 @@ const ManagerDashboard: React.FC = () => {
       </IonHeader>
       <IonContent>
         {registrationRequests.map((request) => (
-          <IonCard>
+          <IonCard key={request.id}>
             <IonCardHeader>
               <IonCardTitle>{request.name}</IonCardTitle>
               <IonCardSubtitle>{request.email}</IonCardSubtitle>             
