@@ -6,11 +6,13 @@ import {
   signInWithEmailAndPassword,
   sendEmailVerification,
   sendSignInLinkToEmail,
-  signInWithCredential
+  signInWithCredential,
+  User
 } from "firebase/auth";
 import { collection, getFirestore, addDoc, doc, getDoc, setDoc } from 'firebase/firestore'
 import { NavLink, useHistory } from "react-router-dom";
 import { toast } from "./toast";
+import { useEffect } from "react";
 
 var firebaseConfig = {
   apiKey: "AIzaSyCOw86gitu12oi9zfhmidiOg4vqRaheovI",
@@ -79,8 +81,26 @@ export async function registerUser(name: string, dob: string,email: string, pass
     
   sendEmailVerification(user)
 
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChanged(authorise, async (user: User | null) => {
+  //     if (user) {
+  //       // Check if the email is verified
+  //       const isEmailVerified = user.emailVerified;
+  //       console.log('Is email verified:', isEmailVerified);
+
+  //       // Perform conditional operations based on email verification status
+  //       if (isEmailVerified) {
+  //         const registrationRef = doc(db, 'registration-requests', user.uid)
+  //         await setDoc(registrationRef, { name, email, dob, role, status: 'Pending' });   
+  //       }
+  //     }
+  //   });
+
+  //   return () => unsubscribe();
+  // }, [authorise]);
+
   const registrationRef = doc(db, 'registration-requests', user.uid)
-  await setDoc(registrationRef, { name, email, dob, role, status: 'pending' });
+  await setDoc(registrationRef, { name, email, dob, role, status: 'Pending' });
 }
 
 export function getCurrentUser() {
