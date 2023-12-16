@@ -37,9 +37,9 @@ const Register: React.FC = () => {
       toast("Email and password are required!");
     }
     const res = await registerUser(name, dob, email, password, 'user');
-    if (res) {
-      <IonToast message={"Details sent to manager for review..."} />
-    }
+    // if (res) {
+    //   <IonToast message={"Details sent to manager for review..."} />
+    // }
     setBusy(false)
   }
 
