@@ -8,7 +8,7 @@ import {
   sendSignInLinkToEmail,
   signInWithCredential
 } from "firebase/auth";
-import { collection, getFirestore, addDoc, doc, getDoc } from 'firebase/firestore'
+import { collection, getFirestore, addDoc, doc, getDoc, setDoc } from 'firebase/firestore'
 import { NavLink, useHistory } from "react-router-dom";
 import { toast } from "./toast";
 
@@ -25,6 +25,7 @@ var firebaseConfig = {
 const app = firebase.initializeApp(firebaseConfig);
 const authorise = getAuth(app);
 const db = getFirestore(app);
+export default db;
 
 export async function loginUser(email: string, password: string) {
   try {
@@ -43,29 +44,43 @@ export async function loginUser(email: string, password: string) {
   }
 }
 
-export async function registerUser(name: string, dob: string,email: string, password: string, role: string) {
-  try {
-    const userCredential = await createUserWithEmailAndPassword(
-      authorise,
-      email,
-      password
-    );
-    const user = userCredential.user
+// export async function registerUser(name: string, dob: string,email: string, password: string, role: string) {
+//   try {
+//     const userCredential = await createUserWithEmailAndPassword(
+//       authorise,
+//       email,
+//       password
+//     );
+//     const user = userCredential.user
 
-    sendEmailVerification(user)
+//     sendEmailVerification(user)
 
-    await addDoc(collection(db, 'user-data'), {
-      name: name,
-      dob: dob,
-      email: email,
-      role:role,
-    })
+//     await addDoc(collection(db, 'user-data'), {
+//       name: name,
+//       dob: dob,
+//       email: email,
+//       role:role,
+//     })
     
-    return user;
-  } catch (error) {
-    console.error('Error signing up!', error);
-    throw error;
-  }
+//     return user;
+//   } catch (error) {
+//     console.error('Error signing up!', error);
+//     throw error;
+//   }
+// }
+
+export async function registerUser(name: string, dob: string,email: string, password: string, role: string) {
+  const userCredential = await createUserWithEmailAndPassword(
+    authorise,
+    email,
+    password
+  );
+  const user = userCredential.user
+    
+  sendEmailVerification(user)
+
+  const registrationRef = doc(db, 'registration-requests', user.uid)
+  await setDoc(registrationRef, { name, email, dob, role, status: 'pending' });
 }
 
 export function getCurrentUser() {
