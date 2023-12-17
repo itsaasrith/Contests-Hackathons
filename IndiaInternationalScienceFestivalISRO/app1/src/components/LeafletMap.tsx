@@ -5,8 +5,6 @@ import React from 'react';
 
 const LeafletMap: React.FC = () => {
   // const center = [51.505, -0.09];
-
-
     return (
       <MapContainer center={[51.505, -0.09]} zoom={9} scrollWheelZoom={false}>
         <TileLayer
