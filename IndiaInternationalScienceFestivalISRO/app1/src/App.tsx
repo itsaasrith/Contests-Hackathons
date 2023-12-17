@@ -3,7 +3,6 @@ import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Launch from './pages/Launch';
 import Register from './pages/Register';
-import Dashboard from './pages/Dashboard';
 import UserDashboard from './pages/UserDashboard';
 import ManagerDashboard from './pages/ManagerDashboard';
 
@@ -34,7 +33,6 @@ const App: React.FC = () => (
       <IonRouterOutlet>
         <Route path="/" component={Launch} exact />
         <Route path="/Register" component={Register} exact />
-        <Route path="/Dashboard" component={Dashboard} exact />
         <Route path="/ManagerDashboard" component={ManagerDashboard} exact />
         <Route path="/UserDashboard" component={UserDashboard} exact />
       </IonRouterOutlet>
