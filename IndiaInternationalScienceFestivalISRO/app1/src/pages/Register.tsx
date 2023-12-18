@@ -14,12 +14,15 @@ import {
   IonIcon,
   IonFooter,
   IonLoading,
+  IonToast,
 } from "@ionic/react";
-import { personCircle, lockClosed, mailOutline, bus } from "ionicons/icons";
+import { personCircle, lockClosed, mailOutline, bus, text, personOutline, calendarOutline } from "ionicons/icons";
 import { toast } from "../toast";
 import { registerUser } from "../firebaseConfig";
 
 const Register: React.FC = () => {
+  const [name, setName] = useState("")
+  const [dob, setDOB] = useState("")
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -33,10 +36,10 @@ const Register: React.FC = () => {
     if (email.trim() === "" || password.trim() === "") {
       toast("Email and password are required!");
     }
-    const res = await registerUser(email, password);
-    if (res) {
-        toast('Account created successfully! Please login...')
-    }
+    const res = await registerUser(name, dob, email, password, 'user');
+    // if (res) {
+    //   <IonToast message={"Details sent to manager for review..."} />
+    // }
     setBusy(false)
   }
 
@@ -51,6 +54,28 @@ const Register: React.FC = () => {
       <IonContent className="ion-padding">
         <IonCard>
           <IonCardContent>
+            <IonItem lines="full">
+              <IonIcon icon={personOutline} slot="start" />
+              <IonLabel position="floating">Name</IonLabel>
+              <IonInput
+                type='text'
+                value={name}
+                onIonChange={(e) => setName(e.detail.value!)}
+                required
+              />
+            </IonItem>
+
+            <IonItem lines="full">
+              <IonIcon icon={calendarOutline} slot="start" />
+              <IonLabel position="floating">Date of Birth</IonLabel>
+              <IonInput
+                type='date'
+                value={dob}
+                onIonChange={(e) => setDOB(e.detail.value!)}
+                required
+              />
+            </IonItem>
+
             <IonItem lines="full">
               <IonIcon icon={mailOutline} slot="start" />
               <IonLabel position="floating">Email</IonLabel>

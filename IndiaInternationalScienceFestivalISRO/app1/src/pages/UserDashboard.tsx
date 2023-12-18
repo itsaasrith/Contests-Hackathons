@@ -12,9 +12,11 @@ import {
   IonHeader,
   IonToolbar,
   IonTitle,
+  IonContent,
 } from "@ionic/react";
+import LeafletMap from "../components/LeafletMap";
 
-const Dashboard: React.FC = () => {
+const UserDashboard: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
@@ -23,7 +25,7 @@ const Dashboard: React.FC = () => {
         </IonToolbar>
       </IonHeader>
 
-      <IonGrid>
+      {/* <IonGrid>
         <IonRow>
           <IonCol size="6">
             <IonCard color="light">
@@ -67,9 +69,12 @@ const Dashboard: React.FC = () => {
             </IonCard>
           </IonCol>
         </IonRow>
-      </IonGrid>
+      </IonGrid> */}
+      <IonContent>
+        <LeafletMap />
+      </IonContent>
     </IonPage>
   );
 };
 
-export default Dashboard;
+export default UserDashboard;

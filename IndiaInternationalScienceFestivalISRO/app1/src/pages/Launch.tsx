@@ -18,17 +18,20 @@ import {
 } from "@ionic/react";
 import React, { useState } from "react";
 import { logInOutline, planet } from "ionicons/icons";
-import { loginUser } from "../firebaseConfig";
+import { loginUser, signIn } from "../firebaseConfig";
 import { toast } from "../toast";
 
 const Launch: React.FC = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const cleanedEmail = email.trim();
+  console.log(cleanedEmail)
 
   async function login() {
-    const res = await loginUser(email, password)
-    if (res) {
-      toast('Successfuly logged in')
+    try {
+      await signIn(cleanedEmail, password)
+    } catch(error) {
+      console.log(cleanedEmail);
     }
   }
 
@@ -66,18 +69,22 @@ const Launch: React.FC = () => {
                 labelPlacement="floating"
                 label="Email"
                 type="email"
-                placeholder="simpsons@future.com"
+                value={email}
+                placeholder="ryan@future.com"
                 className="ion-margin-top"
-                onChange={(e: any) => setEmail(e.target.value)}
+                onIonChange={(e) => setEmail(e.detail.value!)}
+                required
               />
               {/* Enter password */}
               <IonInput
                 labelPlacement="floating"
                 label="Password"
                 type="password"
+                value={password}
                 placeholder="Keep this a secret!"
                 className="ion-margin-top"
-                onChange={(e: any) => setPassword(e.target.value)}
+                onIonChange={(e) => setPassword(e.detail.value!)}
+                required
               />
             </form>
             {/* Login button */}
@@ -97,7 +104,7 @@ const Launch: React.FC = () => {
               routerLink="/Register"
               className="ion-margin-top"
             >
-              First time? Register here!
+              New user? Register here!
               <IonIcon icon={planet} slot="start" />
             </IonButton>
           </IonCardContent>
@@ -106,6 +113,9 @@ const Launch: React.FC = () => {
 
       <div className="ion-light">
         <IonFooter>
+        <IonButton expand="block" onClick={login}>
+          Login as Manager
+        </IonButton>
           <IonCard color={""}>
             <h6 style={{ fontSize: "1em", textAlign: "center" }}>
               &copy; 2023 All Rights Reserved
