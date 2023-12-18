@@ -22,8 +22,8 @@ import { loginUser, signIn } from "../firebaseConfig";
 import { toast } from "../toast";
 
 const Launch: React.FC = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const cleanedEmail = email.trim();
   console.log(cleanedEmail)
 
@@ -68,18 +68,22 @@ const Launch: React.FC = () => {
                 labelPlacement="floating"
                 label="Email"
                 type="email"
-                placeholder="simpsons@future.com"
+                value={email}
+                placeholder="ryan@future.com"
                 className="ion-margin-top"
-                onChange={(e: any) => setEmail(e.target.value)}
+                onIonChange={(e) => setEmail(e.detail.value!)}
+                required
               />
               {/* Enter password */}
               <IonInput
                 labelPlacement="floating"
                 label="Password"
                 type="password"
+                value={password}
                 placeholder="Keep this a secret!"
                 className="ion-margin-top"
-                onChange={(e: any) => setPassword(e.target.value)}
+                onIonChange={(e) => setPassword(e.detail.value!)}
+                required
               />
             </form>
             {/* Login button */}
