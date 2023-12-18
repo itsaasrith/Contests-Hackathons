@@ -130,9 +130,10 @@ export async function signIn(email:string, password: string) {
       // Redirect based on role
       if (role === 'manager') {
         // Redirect to manager dashboard
+        window.location.href = '/ManagerDashboard';
       } else if (role === 'user') {
         // Redirect to user dashboard
-        window.location.href = '/user-dashboard';
+        window.location.href = '/UserDashboard';
       }
     }
 
