@@ -77,7 +77,7 @@ const Register: React.FC = () => {
     // At least one capital letter, one numeric value, one special character, and minimum length of 8 characters
 
     if (!passwordRegex.test(value)) {
-      setPasswordError('Password must contain at least one uppercase letter, one numeric digit, one special character, and be at least 8 characters long');
+      setPasswordError('Password must contain at least one uppercase letters, one numeric digit, one special character, and be at least 8 characters long');
     } else {
       setPasswordError('');
     }
